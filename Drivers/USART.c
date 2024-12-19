@@ -1,5 +1,5 @@
 #include "USART.h"
-int (*PtrFonct) (void);
+void (*PtrFonct) (void);
 
 void USART_Init(USART_TypeDef *USARTx, uint32_t baudrate) {
     // 1. Activar el reloj del USART
@@ -35,7 +35,7 @@ char USART_ReceiveChar(USART_TypeDef *USARTx) {
     return (char)(USARTx->DR & 0xFF);      // Leer y devolver el dato recibido
 }
 
-void USART_EnableInterrupt(USART_TypeDef *USARTx, int (* IT_function) (void)) {
+void USART_EnableInterrupt(USART_TypeDef *USARTx, void (* IT_function) (void)) {
   USARTx->CR1 |= USART_CR1_RXNEIE; // Habilitar interrupción RXNE
   if (USARTx == USART1) NVIC_EnableIRQ(USART1_IRQn);
   else if (USARTx == USART2) NVIC_EnableIRQ(USART2_IRQn);
